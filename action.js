@@ -1,7 +1,7 @@
 function init(){
 
-printLineGraph();
-printDonaughtGraph()
+printGraphs();
+
 };
 
 $(document).ready(init);
@@ -36,35 +36,40 @@ function getMonthProfit(data){
     return monthProfit;
 };
 
+function lineGraph(data){
+  var monthLabel = getMonthLabel();
+  var monthProfit = getMonthProfit(data);
+  var ctx = document.getElementById('lineGraph').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: monthLabel,
+          datasets: [{
+              label: 'Vendite mensili',
+              data: monthProfit,
+              backgroundColor: 	['rgba(255, 0, 0, 0.3)'],
+              borderColor: ['rgba(0, 0, 255, 0.6)'],
+          }]
+      },
+  });
+};
 
-function printLineGraph(){
+function printGraphs(){
 
   $.ajax({
     url : "http://157.230.17.132:4003/sales",
     method : "GET",
     success: function(data){
-      console.log(data);
-        var monthLabel = getMonthLabel();
-        var monthProfit = getMonthProfit(data);
-        var ctx = document.getElementById('lineGraph').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: monthLabel,
-                datasets: [{
-                    label: 'Vendite mensili',
-                    data: monthProfit,
-                    backgroundColor: 	['rgba(255, 0, 0, 0.3)'],
-                    borderColor: ['rgba(0, 0, 255, 0.6)'],
-                }]
-            },
-        });
+      lineGraph(data);
+      donaughtGraph(data);
     },
     error: function(){
 
     }
   });
 };
+
+
 
 function getSalesmanAmount(data){
 
@@ -97,13 +102,8 @@ for (var i=0; i< data.length; i++){
   return agenti;
 };
 
-function printDonaughtGraph(){
+function donaughtGraph(data){
 
-  $.ajax({
-    url : "http://157.230.17.132:4003/sales",
-    method : "GET",
-    success: function(data){
-      console.log(data);
 
         getSalesmanAmount(data);
         var ctx = document.getElementById('donoughGraph').getContext('2d');
@@ -119,9 +119,4 @@ function printDonaughtGraph(){
                 }]
             },
         });
-    },
-    error: function(){
-
-    }
-  });
 };
