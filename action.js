@@ -54,6 +54,54 @@ function lineGraph(data){
   });
 };
 
+function getSalesmenProfit(data){
+
+  var sellers = {};
+
+  for (var i=0; i<data.length; i++){
+    var d = data[i];
+
+    var name = d.salesman;
+    var amount = d.amount;
+
+    if (!sellers[name]){
+      sellers[name] = 0;
+    };
+
+    sellers[name] += Number(amount);
+  };
+
+  console.log(sellers);
+  return sellers;
+};
+
+function pieGraph(data){
+  var sellers = getSalesmenProfit(data);
+  var name = Object.keys(sellers);
+  var amounts = Object.values(sellers);
+  console.log(sellers);
+  console.log(name);
+  console.log(amounts);
+
+  var ctx = document.getElementById('pieGraph').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+          labels: name,
+          datasets: [{
+              label: 'Vendite mensili',
+              data: amounts,
+              backgroundColor: 	[
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 0, 0, 0.6)'
+              ],
+          }]
+      },
+  });
+};
+
 function printGraphs(){
 
   $.ajax({
@@ -61,7 +109,7 @@ function printGraphs(){
     method : "GET",
     success: function(data){
       lineGraph(data);
-      donaughtGraph(data);
+      pieGraph(data);
     },
     error: function(){
 
@@ -71,52 +119,11 @@ function printGraphs(){
 
 
 
-function getSalesmanAmount(data){
 
 
-var agenti = {
-  nome : [],
-  somma : []
-};
-
-for (var i=0; i< data.length; i++){
-
-  var d = data[i];
-
-  var nome = d.salesman;
-
-  if(!agenti.nome.includes(nome)){
-    agenti.nome.push(nome);
-    agenti.somma.push(0)
-  };
-
-  var amount = d.amount;
-
-  for (var x=0; x < agenti.nome.length; x++){
-    if (nome == agenti.nome[x]){
-      agenti.somma[x] += amount;
-    }
-  }
-
-};
-  return agenti;
-};
-
-function donaughtGraph(data){
 
 
-        getSalesmanAmount(data);
-        var ctx = document.getElementById('donoughGraph').getContext('2d');
-        var myPieChart  = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: agenti.nome,
-                datasets: [{
-                    label: '# of Votes',
-                    data: agenti.somma,
-                    backgroundColor: 	['rgba(255, 0, 0, 0.3)'],
-                    borderColor: ['rgba(0, 0, 255, 0.6)'],
-                }]
-            },
-        });
-};
+
+
+
+// if (!sellers.includes(name)) è la stessa cosa che scrivere if(!sellers[name]) o è una cosa completamente diversa ?
