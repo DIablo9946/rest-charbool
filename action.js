@@ -46,13 +46,13 @@ function printLineGraph(){
       console.log(data);
         var monthLabel = getMonthLabel();
         var monthProfit = getMonthProfit(data);
-        var ctx = document.getElementById('myChart').getContext('2d');
+        var ctx = document.getElementById('lineGraph').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: monthLabel,
                 datasets: [{
-                    label: '# of Votes',
+                    label: 'Vendite mensili',
                     data: monthProfit,
                     backgroundColor: 	['rgba(255, 0, 0, 0.3)'],
                     borderColor: ['rgba(0, 0, 255, 0.6)'],
@@ -106,14 +106,14 @@ function printDonaughtGraph(){
       console.log(data);
 
         getSalesmanAmount(data);
-        var ctx = document.getElementById('myChart').getContext('2d');
+        var ctx = document.getElementById('donoughGraph').getContext('2d');
         var myPieChart  = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: agenti,
+                labels: agenti.nome,
                 datasets: [{
                     label: '# of Votes',
-                    data: somma,
+                    data: agenti.somma,
                     backgroundColor: 	['rgba(255, 0, 0, 0.3)'],
                     borderColor: ['rgba(0, 0, 255, 0.6)'],
                 }]
