@@ -83,6 +83,22 @@ function pieGraph(data){
   console.log(name);
   console.log(amounts);
 
+  var perc = "%";
+  var sumAmounts = 0;
+  for (var i=0; i<amounts.length; i++){
+
+    sumAmounts += Number(amounts[i]);
+
+  };
+
+  console.log(sumAmounts);
+
+  for (var i=0; i<amounts.length; i++){
+
+    amounts[i] = Math.floor(amounts[i]/sumAmounts*100) // come aggiungere il segno di %
+  };
+   amounts[i] += perc;
+
   var ctx = document.getElementById('pieGraph').getContext('2d');
   var myChart = new Chart(ctx, {
       type: 'pie',
