@@ -1,38 +1,11 @@
 function init(){
-  // getGraphic();
-  console.log("Hello");
-  getMonthLabel();
-  printLineGraph();
+
+printLineGraph();
 
 };
 
 $(document).ready(init);
 
-
-// function getGraphic(){
-//
-//   var ctx = document.getElementById('myChart').getContext('2d');
-// var myChart = new Chart(ctx, {
-//     type: 'bar',
-//     data: {
-//         labels: ['Red', 'Blue', 'Grey', 'Green', 'Purple', 'Orange'],
-//         datasets: [{
-//             label: '# of Votes',
-//             data: [4, 5, 9, 6, 7, 3],
-//         }]
-//     },
-//     options: {
-//         scales: {
-//             yAxes: [{
-//                 ticks: {
-//                     beginAtZero: true
-//                 }
-//             }]
-//         }
-//     }
-// });
-//
-// };
 
 
 function getMonthLabel(){
